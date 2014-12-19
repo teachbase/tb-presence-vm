@@ -1,0 +1,2 @@
+- include: erlang.yml tags=erlang
+- include: erl_interface_fix.yml tags=erlang

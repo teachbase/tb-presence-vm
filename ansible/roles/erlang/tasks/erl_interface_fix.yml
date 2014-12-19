@@ -1,0 +1,6 @@
+- name: Erlang | Find erl_interface path
+  shell: erl -eval 'erlang:display(code:lib_dir(erl_interface)), halt().' -noshell
+  register: erl_interface_path
+
+- name: Erlang | Create erl_interface/ebin
+  file: path={{erl_interface_path.stdout}}/ebin state=directory

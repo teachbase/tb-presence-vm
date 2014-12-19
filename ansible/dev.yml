@@ -1,0 +1,10 @@
+---
+- name: Development setup
+  hosts: dev
+  user: vagrant
+  sudo: true
+  roles:
+    - {role: 'common_setup', tags:['initial']}
+    - {role: 'erlang', tags: ['erlang']}
+    - {role: 'influxdb', tags: ['influxdb']}
+    - {role: 'influx_setup', tags: ['influx_setup']}

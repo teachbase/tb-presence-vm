@@ -1,0 +1,13 @@
+.DS_Store
+.vagrant/
+fyler/
+
+*.sublime-project
+*.sublime-workspace
+
+# production files
+
+priv/ansible/group_vars/production.yml
+priv/ansible/fyler_aws.yml
+priv/ansible/aws.yml
+priv/ansible/aws_hosts
