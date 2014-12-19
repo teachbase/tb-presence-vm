@@ -1,6 +1,5 @@
 .DS_Store
 .vagrant/
-fyler/
 
 *.sublime-project
 *.sublime-workspace
