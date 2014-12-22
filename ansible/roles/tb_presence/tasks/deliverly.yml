@@ -1,0 +1,48 @@
+- name: TB presence (deliverly) | clone 
+  sudo_user: "{{ deploy_user }}"
+  git: repo={{ deliverly.repo }} version={{ deliverly.version }} accept_hostkey=true dest={{app_path}}
+  register: repo
+
+- name: TB presence (deliverly) | Create vm.args
+  sudo_user: "{{ deploy_user }}"
+  template: src=vm.args.j2 dest={{app_path}}/files/vm.args
+  register: vmargs
+
+- name: TB presence (deliverly) | Create app config
+  sudo_user: "{{ deploy_user }}"
+  template: src=app.config.j2 dest={{app_path}}/files/app.config
+  register: appconfig
+
+- name: TB presence (deliverly) | release exists?
+  stat: path={{ deliverly.bin_path}}/deliverly
+  register: release_bin
+
+- name: TB presence (deliverly) | clean
+  sudo_user: "{{ deploy_user }}"
+  command: make clean chdir={{ app_path }}
+  when: deliverly.force_clean or repo.changed or appconfig.changed or vmargs.changed or (not release_bin.stat.exists)
+  register: cleaned
+
+- name: TB presence (deliverly) | update deps
+  sudo_user: "{{ deploy_user }}"
+  command: 'make update_deps chdir={{ app_path }}'
+  when: cleaned.changed and repo.changed
+
+- name: TB presence (deliverly) | compile
+  sudo_user: "{{ deploy_user }}"
+  command: 'make compile chdir={{ app_path }}'
+  when: cleaned.changed
+  register: compiled
+
+- name: TB presence (deliverly) | release
+  sudo_user: "{{ deploy_user }}"
+  command: make soft-release chdir={{ app_path }}
+  when: compiled.changed or (not release_bin.stat.exists)
+  register: released
+
+- name: TB presence (deliverly) | copy release
+  sudo_user: "{{ deploy_user }}"
+  command: "cp -R {{ app_path }}/deliverly {{ deliverly.release_path }} chdir={{ app_path }}"
+  when: released.changed
+  notify:
+    - restart deliverly

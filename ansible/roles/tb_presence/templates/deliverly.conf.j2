@@ -1,0 +1,23 @@
+description     "delvierly startup script"
+author "dem@teachbase.ru"
+
+start on runlevel[2345]
+stop on runlevel[016]
+
+# required for erlang
+env HOME="/home/{{ deploy_user }}"
+export HOME
+setuid {{ deploy_user }}
+
+pre-start script
+  echo "Deliverly Started at  `date`" >> /home/{{ deploy_user }}/deliverly.log
+end script
+
+script
+  exec service deliverlyd start
+end script
+
+pre-stop script
+  echo  "Deliverly Stopped at  `date`" >> /home/{{ deploy_user }}/deliverly.log
+  exec service deliverlyd stop
+end script

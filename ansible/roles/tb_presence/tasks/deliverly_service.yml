@@ -1,0 +1,9 @@
+- name: TB presence (deliverly) | Create deliverly service
+  action: template src=deliverlyd.j2 dest=/etc/init.d/deliverlyd mode=755
+
+- name: TB presence (deliverly) | Create deliverly upstart script
+  action: template src=deliverly.conf.j2 dest=/etc/init/deliverly.conf mode=755
+
+- name: TB presence (deliverly) | Restart deliverly
+  sudo_user: "{{ deploy_user }}"
+  service: name=deliverlyd state=started

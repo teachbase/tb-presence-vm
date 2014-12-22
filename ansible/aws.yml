@@ -1,0 +1,13 @@
+---
+- name: Production setup
+  hosts: aws_production
+  sudo: yes 
+  remote_user: ubuntu
+  gather_facts: True
+  roles:
+    - {role: 'common_setup', tags:['initial']}
+    - { role: deploy_user, tags: ['user'] }
+    - {role: 'erlang', tags: ['erlang']}
+    - {role: 'influxdb', tags: ['influxdb']}
+    - {role: 'influx_setup', tags: ['influx_setup']}
+    - {role: 'tb_presence', tags: ['tb_presence']}

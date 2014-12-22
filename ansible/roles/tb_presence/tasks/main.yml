@@ -1,0 +1,5 @@
+- name: Make webapps dir
+  file: path={{app_dir}} state=directory owner={{ deploy_user }} mode="0755"
+
+- include: deliverly.yml tags=deliverly_install
+- include: deliverly_service.yml tags=deliverly_service

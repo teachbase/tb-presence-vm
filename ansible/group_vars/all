@@ -10,7 +10,6 @@ erlang_url: "http://www.erlang.org/download/otp_src_{{erlang_version}}.tar.gz"
 erlang_name: "otp_src_{{erlang_version}}"
 erlang_tmp_path: "/usr/local/src/{{erlang_name}}"
 
-
 # influxdb
 influxdb:
   version: 0.8.6
@@ -31,5 +30,22 @@ influx_setup:
     - 'select * from collected_perf.load_page into collected_perf.load_page.[page_id]'
     - 'select ip, page_id, browser, user_id, browser_version, os, percentile(req_time, 95) as req_time from perf_load_ajax group by time(10m) into collected_perf.load_ajax'
     - 'select * from collected_perf.load_ajax into collected_perf.load_ajax.[page_id]'
+
+
+deliverly:
+  force_clean: false
+  node_name: deliver
+  cookie: deliver2015
+  repo: git://github.com/teachbase/tb-presence.git
+  version: master
+  release_path: "{{ app_dir }}/deliverly_release"
+  bin_path: "{{ app_dir }}/deliverly_release/bin"
+
+tb:
+  influx_host: '127.0.0.1'
+  influx_port: 9001
+  pool_size: 10
+  max_overflow: 5
+  http_port: 8081
 
 honeybadger_api_key: ''

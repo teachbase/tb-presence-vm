@@ -1,0 +1,3 @@
+- name: restart deliverly
+  sudo_user: "{{ deploy_user }}"
+  service: name=deliverlyd state=restarted

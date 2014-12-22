@@ -1,0 +1,31 @@
+### BEGIN INIT INFO
+# Provides: deliverlyd
+# Required-Start: $network
+# Required-Stop: $network
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Description: deliverlyd File processing manager
+### END INIT INFO
+#!/bin/sh
+export HOME=/home/{{ deploy_user }}
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+case "$1" in
+    ping)
+        {{ deliverly.bin_path }}/deliverly ping
+        ;;
+    start)
+        {{ deliverly.bin_path }}/deliverly start
+        ;;
+    stop)
+        {{ deliverly.bin_path }}/deliverly stop
+        ;;
+    restart)
+        $0 stop
+        sleep 1
+        $0 start
+        ;;
+    *)
+        echo "Usage: /etc/init.d/deliverlyd {ping|start|stop|restart}"
+        exit 1
+        ;;
+esac

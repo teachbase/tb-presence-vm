@@ -1,0 +1,35 @@
+---
+- name: Production setup
+  hosts: aws_production
+  sudo: yes 
+  remote_user: ubuntu
+  gather_facts: True
+  tasks:
+    - name: Check DelivErly
+      sudo_user: "{{ deploy_user }}"
+      command: service deliverlyd ping
+      register: ping
+      ignore_errors: True
+
+    - name: Debug ping
+      debug: 'msg="{{ ping.stdout }}"'
+
+    - name: Restart DelivErly 
+      sudo_user: "{{ deploy_user }}"
+      command: service deliverlyd restart
+      register: restart_msg
+      when: ping.stdout == "pong"
+
+    - name: Restart DelivErly
+      sudo_user: "{{ deploy_user }}"
+      command: service deliverlyd start
+      register: start_msg
+      when: ping.stdout != "pong"
+
+    - name: Debug restart
+      debug: 'msg="{{restart_msg.stdout}}"'
+      when: ping.stdout == "pong"
+
+    - name: Debug start
+      debug: 'msg="{{start_msg.stdout}}"'
+      when: ping.stdout != "pong"
