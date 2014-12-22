@@ -10,4 +10,5 @@
     - {role: 'erlang', tags: ['erlang']}
     - {role: 'influxdb', tags: ['influxdb']}
     - {role: 'influx_setup', tags: ['influx_setup']}
+    - {role: 'nginx', tags: ['nginx']}
     - {role: 'tb_presence', tags: ['tb_presence']}

@@ -10,6 +10,9 @@ erlang_url: "http://www.erlang.org/download/otp_src_{{erlang_version}}.tar.gz"
 erlang_name: "otp_src_{{erlang_version}}"
 erlang_tmp_path: "/usr/local/src/{{erlang_name}}"
 
+# nginx
+nginx_conf: nginx_app
+
 # influxdb
 influxdb:
   version: 0.8.6
@@ -47,5 +50,6 @@ tb:
   pool_size: 10
   max_overflow: 5
   http_port: 8081
+  ws_timeout: 950s
 
 honeybadger_api_key: ''
