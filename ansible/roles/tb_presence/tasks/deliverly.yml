@@ -1,6 +1,6 @@
 - name: TB presence (deliverly) | clone 
   sudo_user: "{{ deploy_user }}"
-  git: repo={{ deliverly.repo }} version={{ deliverly.version }} accept_hostkey=true dest={{app_path}}
+  git: repo={{ deliverly.repo }} version={{ deliverly.version }} accept_hostkey=true dest={{app_path}} recursive=yes
   register: repo
 
 - name: TB presence (deliverly) | Create vm.args
