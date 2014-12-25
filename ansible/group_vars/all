@@ -94,11 +94,11 @@ deliverly:
   cookie: deliver2015
   repo: git://github.com/teachbase/tb-presence.git
   version: master
-  release_path: "{{ app_dir }}/deliverly_release"
-  bin_path: "{{ app_dir }}/deliverly_release/bin"
+  release_path: "{{ app_dir }}/releases"
+  bin_path: "{{ app_dir }}/releases/deliverly/bin"
 
 tb:
-  influx_host: '127.0.0.1'
+  influx_host: "'127.0.0.1'"
   influx_port: 9001
   pool_size: 10
   max_overflow: 5

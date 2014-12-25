@@ -1,3 +1,7 @@
+- name: TB presence (deliverly) | create releases dir
+  sudo_user: "{{ deploy_user }}"
+  file: dest={{ deliverly.release_path }} state=directory
+
 - name: TB presence (deliverly) | clone 
   sudo_user: "{{ deploy_user }}"
   git: repo={{ deliverly.repo }} version={{ deliverly.version }} accept_hostkey=true dest={{app_path}} recursive=yes
@@ -39,6 +43,11 @@
   command: make soft-release chdir={{ app_path }}
   when: compiled.changed or (not release_bin.stat.exists)
   register: released
+
+- name: TB presence (deliverly) | remove previous release
+  sudo_user: "{{ deploy_user }}"
+  file: dest={{ deliverly.release_path }}/deliverly state=absent
+  when: released.changed
 
 - name: TB presence (deliverly) | copy release
   sudo_user: "{{ deploy_user }}"
