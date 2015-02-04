@@ -1,6 +1,14 @@
 server {
   listen 80;
-  
+
+  {% if nginx_ssl %}
+  listen 443 ssl;
+
+  ssl_certificate {{ nginx_ssl_cert_path }};
+  ssl_certificate_key {{ nginx_ssl_key_path}};
+
+  {% endif %}  
+
   location /ws/ {
       proxy_pass http://localhost:{{ tb.http_port }};
       proxy_http_version 1.1;

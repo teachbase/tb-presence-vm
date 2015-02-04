@@ -1,1 +1,2 @@
+- include: ssl.yml tags=nginx_ssl
 - include: nginx.yml tags=nginx

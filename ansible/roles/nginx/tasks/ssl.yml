@@ -1,0 +1,9 @@
+- name: Nginx | Copy SSL cert
+  copy: src={{ nginx_ssl_cert_local_path }} dest={{ nginx_ssl_cert_path }}
+  sudo: True
+  when: nginx_ssl
+
+- name: Nginx | Copy SSL cert
+  copy: src={{ nginx_ssl_key_local_path }} dest={{ nginx_ssl_key_path }}
+  sudo: True
+  when: nginx_ssl
