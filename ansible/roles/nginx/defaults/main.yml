@@ -1,1 +1,2 @@
 nginx_ssl: False
+nginx_ssl_depth: 3
