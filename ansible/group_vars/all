@@ -28,7 +28,6 @@ influx_setup:
     - {"name": "perf", "regex": "/collected_perf.*/", "retentionPolicy": "7d", "shardDuration": "10m", "replicationFactor": 1, "split": 1}
     - {"name": "visits_by_hour", "regex": "/visits_by_hour.*/", "retentionPolicy": "7d", "shardDuration": "1h", "replicationFactor": 1, "split": 1}
     - {"name": "visits_by_day", "regex": "/visits_by_day.*/", "retentionPolicy": "365d", "shardDuration": "1d", "replicationFactor": 1, "split": 1}
-    - {"name": "visits_by_month", "regex": "/visits_by_month.*/", "retentionPolicy": "inf", "shardDuration": "30d", "replicationFactor": 1, "split": 1}
   queries:
     - 'select page_id, browser, browser_version, os, user_id, count(load_time) as total, mean(dom_time) as dom_time, mean(load_time) as load_time, mean(req_time) as req_time, mean(connect_time) as connect_time, mean(redirect_time) as redirect_time from perf_load_page group by time(10m), page_id, browser, browser_version, os, user_id fill(0) into collected_perf_load_page'
     - 'select page_id, browser, user_id, browser_version, os, mean(req_time) as req_time, count(req_time) as total from perf_load_ajax group by time(10m), page_id, browser, browser_version, os, user_id fill(0) into collected_perf_load_ajax'
@@ -64,28 +63,6 @@ influx_setup:
     - 'select sum(time_spent) as time_spent, count(distinct(user_id)) as user_count from visits where material_id>0 group by time(1d), material_id fill(0) into visits_by_day_material_[material_id]'
     - 'select sum(time_spent) as time_spent, count(distinct(user_id)) as user_count from visits where material_id>0 group by time(1d), material_id, course_session_id fill(0) into visits_by_day_material_[material_id]_course_session_[course_session_id]'
     - 'select sum(time_spent) as time_spent from visits where material_id>0 group by time(1d), material_id, user_id fill(0) into visits_by_day_material_[material_id]_user_[user_id]'
-
-
-    - 'select sum(time_spent) as total_spent, count(distinct(user_id)) as user_count, count(distinct(account_id)) as account_count from visits group by time(30d) fill(0) into visits_by_month'
-    - 'select sum(time_spent) as time_spent, count(distinct(user_id)) as user_count from visits group by time(30d), account_id fill(0) into visits_by_month_account_[account_id]'
-    - 'select sum(time_spent) as time_spent from visits group by time(30d), user_id, account_id fill(0) into visits_by_month_account_[account_id]_user_[user_id]'
-    - 'select sum(time_spent) as time_spent, count(distinct(user_id)) as user_count from visits where course_session_id>0 group by time(30d), course_id fill(0) into visits_by_month_course_[course_id]'
-    - 'select sum(time_spent) as time_spent, count(distinct(user_id)) as user_count from visits where course_session_id>0 group by time(30d), course_session_id fill(0) into visits_by_month_course_session_[course_session_id]'
-    - 'select sum(time_spent) as time_spent from visits where course_session_id>0 group by time(30d), course_session_id, user_id fill(0) into visits_by_month_course_session_[course_session_id]_user_[user_id]'
-    - 'select sum(time_spent) as time_spent, count(distinct(user_id)) as user_count from visits where question_id>0 group by time(30d), quiz_id fill(0) into visits_by_month_quiz_[quiz_id]'
-    - 'select sum(time_spent) as time_spent, count(distinct(user_id)) as user_count from visits where question_id>0 group by time(30d), quiz_id, course_session_id fill(0) into visits_by_month_quiz_[quiz_id]_course_session_[course_session_id]'
-    - 'select sum(time_spent) as time_spent from visits where question_id>0 group by time(30d), quiz_id, user_id fill(0) into visits_by_month_quiz_[quiz_id]_user_[user_id]'
-    - 'select sum(time_spent) as time_spent, count(distinct(user_id)) as user_count from visits where question_id>0 group by time(30d), question_id fill(0) into visits_by_month_question_[question_id]'
-    - 'select sum(time_spent) as time_spent, count(distinct(user_id)) as user_count from visits where question_id>0 group by time(30d), question_id, course_session_id fill(0) into visits_by_month_question_[question_id]_course_session_[course_session_id]'
-    - 'select sum(time_spent) as time_spent from visits where question_id>0 group by time(30d), question_id, user_id fill(0) into visits_by_month_question_[question_id]_user_[user_id]'
-    - 'select sum(time_spent) as time_spent, count(distinct(user_id)) as user_count from visits where material_id>0 group by time(30d), material_id fill(0) into visits_by_month_material_[material_id]'
-    - 'select sum(time_spent) as time_spent, count(distinct(user_id)) as user_count from visits where material_id>0 group by time(30d), material_id, course_session_id fill(0) into visits_by_month_material_[material_id]_course_session_[course_session_id]'
-    - 'select sum(time_spent) as time_spent from visits where material_id>0 group by time(30d), material_id, user_id fill(0) into visits_by_month_material_[material_id]_user_[user_id]'
-
-
-
-
-    
 
 
 deliverly:

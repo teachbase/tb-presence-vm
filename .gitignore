@@ -7,4 +7,5 @@
 # production files
 
 ansible/group_vars/aws_production
+ansible/group_vars/production
 ansible/host_vars
