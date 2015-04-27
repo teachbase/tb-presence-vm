@@ -1,0 +1,9 @@
+- name: Install influxdb-dump
+  sudo: "{{ deploy_user }}"
+  environment:
+    GOPATH: /home/{{deploy_user}}/go
+  shell: /usr/local/go/bin/go get {{ influxdb_dump_url }}
+
+- name: Create backups directory
+  sudo: "{{ deploy_user }}"
+  file: path=/home/{{deploy_user}}/influx_backup state=directory

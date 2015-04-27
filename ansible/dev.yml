@@ -6,5 +6,7 @@
   roles:
     - {role: 'common_setup', tags:['initial']}
     - {role: 'erlang', tags: ['erlang']}
+    - {role: 'golang', tags: ['go']}
     - {role: 'influxdb', tags: ['influxdb']}
     - {role: 'influx_setup', tags: ['influx_setup']}
+    - {role: 'influx_backup', tags: ['influx_backup']}

@@ -15,7 +15,7 @@ nginx_conf: nginx_app
 
 # influxdb
 influxdb:
-  version: 0.8.6
+  version: 0.8.7
   udp: "true"
   udp_port: 9001
   udp_db: devdb
