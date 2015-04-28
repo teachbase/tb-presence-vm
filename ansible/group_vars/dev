@@ -4,3 +4,6 @@ deploy_user_key: "~/.ssh/devtb_rsa.pub"
 
 influxdb:
   admin_pass: admin
+
+influxdb_dump_dir: "/home/{{ deploy_user }}/backups/influxdb"
+influxdb_dump_database: "{{ influx_setup.db_name }}"

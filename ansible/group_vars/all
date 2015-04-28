@@ -20,6 +20,9 @@ influxdb:
   udp_port: 9001
   udp_db: devdb
 
+influxdb_dump_series: visits
+influxdb_dump_password: "{{ influxdb.admin_pass }}"
+
 influx_setup:
   user: false
   db_name: devdb

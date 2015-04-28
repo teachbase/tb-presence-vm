@@ -1,1 +1,8 @@
 influxdb_dump_url: github.com/palkan/influxdb-backup/...
+influxdb_dump_host: localhost:8086
+influxdb_dump_username: admin
+influxdb_dump_password: admin
+influxdb_dump_database: database
+influxdb_dump_series: "/.*/"
+influxdb_dump_dir: "/tmp/backups/influxdb"
+influxdb_dump_aws: ""
