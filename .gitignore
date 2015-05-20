@@ -8,4 +8,5 @@
 
 ansible/group_vars/aws_production
 ansible/group_vars/production
+ansible/group_vars/selectel
 ansible/host_vars
