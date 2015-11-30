@@ -4,6 +4,9 @@
   sudo: yes 
   remote_user: root
   gather_facts: True
+  vars:
+    deliverly:
+      force_clean: true
   roles:
     - { role: common_setup, tags:['initial'] }
     - { role: deploy_user, tags: ['user'] }

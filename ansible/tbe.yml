@@ -1,0 +1,13 @@
+---
+- name: TbEnergo setup
+  hosts: tbe
+  sudo: yes 
+  remote_user: root
+  gather_facts: True
+  roles:
+    - { role: erlang, tags: ['erlang'] }
+    - { role: golang, tags: ['go'] }
+    - { role: influxdb, tags: ['influxdb'] }
+    - { role: influx_setup, tags: ['influx_setup'] }
+    - { role: influx_backup, tags: ['influx_backup'] }
+    - { role: tb_presence, tags: ['tb_presence'] }

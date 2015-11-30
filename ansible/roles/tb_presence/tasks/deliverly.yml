@@ -34,7 +34,7 @@
 
 - name: TB presence (deliverly) | get deps
   sudo_user: "{{ deploy_user }}"
-  command: 'make dep chdir={{ app_path }}'
+  command: 'make get_deps chdir={{ app_path }}'
   when: cleaned.changed
 
 - name: TB presence (deliverly) | compile
