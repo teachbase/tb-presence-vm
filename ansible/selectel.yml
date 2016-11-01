@@ -8,9 +8,10 @@
     deliverly:
       force_clean: true
   roles:
-    - { role: common_setup, tags: ['initial'] }
-    - { role: deploy_user, tags: ['user'] }
+    # - { role: common_setup, tags: ['initial'] }
+    # - { role: deploy_user, tags: ['user'] }
     - { role: erlang, tags: ['erlang'] }
-    - { role: influx_setup, tags: ['influx_setup'] }
-    - { role: 'alekseenkoss77.monit', tags: ['monit'] }
+    # - { role: 'influxdb', tags: ['influx'] }
+    # - { role: influx_setup, tags: ['influx_setup'] }
+    # - { role: 'alekseenkoss77.monit', tags: ['monit'] }
     - { role: tb_presence, tags: ['tb_presence'] }

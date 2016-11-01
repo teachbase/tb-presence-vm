@@ -1,8 +1,5 @@
-- name: Install influxdb-dump
-  sudo_user: "{{ deploy_user }}"
-  environment:
-    GOPATH: /home/{{deploy_user}}/go
-  shell: /usr/local/go/bin/go get {{ influxdb_dump_url }}
+- name: Install boto3
+  apt: name=python-boto state=present
 
 - name: Create backups directory
   sudo_user: "{{ deploy_user }}"

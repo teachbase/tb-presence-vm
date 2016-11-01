@@ -1,0 +1,16 @@
+---
+- name: Production setup
+  hosts: production
+  sudo: yes 
+  remote_user: ubuntu
+  gather_facts: True
+  roles:
+    - { role: common_setup, tags: ['initial'] }
+    - { role: deploy_user, tags: ['user'] }
+    - { role: aws_cli, tags: ['aws'] }
+    - { role: erlang, tags: ['erlang'] }
+    - { role: influx_setup, tags: ['influx_setup'] }
+    - { role: 'influx_backup', tags: ['influx_backup'] }
+    - { role: nginx, tags: ['nginx'] }
+    - { role: 'alekseenkoss77.monit', tags: ['monit'] }
+    - { role: tb_presence, tags: ['tb_presence'] }

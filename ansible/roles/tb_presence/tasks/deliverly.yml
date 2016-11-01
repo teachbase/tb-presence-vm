@@ -18,7 +18,7 @@
   register: appconfig
 
 - name: TB presence (deliverly) | release exists?
-  stat: path={{ deliverly.bin_path}}/deliverly
+  stat: path={{ deliverly.bin_path}}/tb-presence
   register: release_bin
 
 - name: TB presence (deliverly) | clean
@@ -26,16 +26,6 @@
   command: make clean chdir={{ app_path }}
   when: deliverly.force_clean or repo.changed or appconfig.changed or vmargs.changed or (not release_bin.stat.exists)
   register: cleaned
-
-- name: TB presence (deliverly) | update deps
-  sudo_user: "{{ deploy_user }}"
-  command: 'make update_deps chdir={{ app_path }}'
-  when: cleaned.changed
-
-- name: TB presence (deliverly) | get deps
-  sudo_user: "{{ deploy_user }}"
-  command: 'make get_deps chdir={{ app_path }}'
-  when: cleaned.changed
 
 - name: TB presence (deliverly) | compile
   sudo_user: "{{ deploy_user }}"
@@ -45,18 +35,18 @@
 
 - name: TB presence (deliverly) | release
   sudo_user: "{{ deploy_user }}"
-  command: make soft-release chdir={{ app_path }}
+  command: make release chdir={{ app_path }}
   when: compiled.changed or (not release_bin.stat.exists)
   register: released
 
 - name: TB presence (deliverly) | remove previous release
   sudo_user: "{{ deploy_user }}"
-  file: dest={{ deliverly.release_path }}/deliverly state=absent
+  file: dest={{ deliverly.release_path }}/tb-presence state=absent
   when: released.changed
 
 - name: TB presence (deliverly) | copy release
   sudo_user: "{{ deploy_user }}"
-  command: "cp -R {{ app_path }}/deliverly {{ deliverly.release_path }} chdir={{ app_path }}"
+  command: "cp -R {{ app_path }}/_build/prod/rel/tb-presence {{ deliverly.release_path }} chdir={{ app_path }}"
   when: released.changed
   notify:
     - restart deliverly

@@ -1,0 +1,16 @@
+---
+- name: Production setup
+  hosts: production
+  sudo: yes 
+  remote_user: root
+  gather_facts: True
+  roles:
+    - { role: common_setup, tags: ['initial'] }
+    - { role: deploy_user, tags: ['user'] }
+    - { role: aws_cli, tags: ['aws'] }
+    - { role: erlang, tags: ['erlang'] }
+    - { role: 'palkan.influxdb', tags: ['influx_setup'] }
+    - { role: 'alekseenkoss77.influxdb-backup', tags: ['influx_backup'] }
+    - { role: nginx, tags: ['nginx'] }
+    - { role: 'alekseenkoss77.monit', tags: ['monit'] }
+    - { role: tb_presence, tags: ['tb_presence'] }

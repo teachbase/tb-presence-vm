@@ -11,13 +11,13 @@ export HOME=/home/{{ deploy_user }}
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 case "$1" in
     ping)
-        {{ deliverly.bin_path }}/deliverly ping
+        {{ deliverly.bin_path }}/tb-presence ping
         ;;
     start)
-        {{ deliverly.bin_path }}/deliverly start
+        {{ deliverly.bin_path }}/tb-presence start
         ;;
     stop)
-        {{ deliverly.bin_path }}/deliverly stop
+        {{ deliverly.bin_path }}/tb-presence stop
         ;;
     restart)
         $0 stop

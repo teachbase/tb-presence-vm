@@ -10,7 +10,7 @@ end script
 
 script
   export HOME="/home/{{ deploy_user }}"
-  exec start-stop-daemon --start --name deliverly --user {{ deploy_user }} --chuid {{ deploy_user }} --exec {{ deliverly.bin_path }}/deliverly -- start
+  exec start-stop-daemon --start --name tb-presence --user {{ deploy_user }} --chuid {{ deploy_user }} --exec {{ deliverly.bin_path }}/tb-presence -- start
 end script
 
 pre-stop script

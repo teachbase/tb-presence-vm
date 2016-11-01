@@ -4,8 +4,8 @@ app_name: tb-presence
 app_path: "{{ app_dir }}/{{ app_name }}"
 
 # erlang
-erlang_version: "17.4"
-erlang_check_version: "17"
+erlang_version: "18.3"
+erlang_check_version: "18"
 erlang_url: "http://www.erlang.org/download/otp_src_{{erlang_version}}.tar.gz" 
 erlang_name: "otp_src_{{erlang_version}}"
 erlang_tmp_path: "/usr/local/src/{{erlang_name}}"
@@ -73,9 +73,9 @@ deliverly:
   node_name: deliver
   cookie: deliver2015
   repo: git://github.com/teachbase/tb-presence.git
-  version: master
+  version: influxdb_1
   release_path: "{{ app_dir }}/releases"
-  bin_path: "{{ app_dir }}/releases/deliverly/bin"
+  bin_path: "{{ app_dir }}/releases/tb-presence/bin"
 
 tb:
   influx_host: "'127.0.0.1'"
